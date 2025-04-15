@@ -1,51 +1,51 @@
-import React, { useState } from "react";
+import react, {useState} from "react";
 
-function App() {
+function App () {
 
-  const[headingText, setHeadingText] = useState("");
-  const[mouseOver, setMouseOver] = useState(false);
-  const[name, setName] = useState("");
-
-  function handleMouseOver() {
-    setMouseOver(true);
-  }
-  
-  function handleMouseOut() {
-    setMouseOver(false);
-  }
+  const [fullName, setFullName] = useState({
+    fName: "",
+    lName: ""
+  });
 
   function handleChange(event) {
-    setName(event.target.value);
-  }
-  function handleClick(event) {
-    setHeadingText(name);
-    event.preventDefault();
+    const {value, name} = event.target;
+
+    setFullName(prevValue => {
+      if (name === "fName") {
+        return {
+          fName: value,
+          lName: prevValue.lName
+        };
+      }
+      else if (name === "lName") {
+        return {
+          fName: prevValue.fName,
+          lName: value
+        };
+      }
+    });
   }
 
   return (
     <div className="container">
-      <h1>Hello {headingText}</h1>
-      <form onSubmit={handleClick}>
+      <h1>Hello {fullName.fName} {fullName.lName}</h1>
+      <form>
         <input 
+          value={fullName.fName}
+          name="fName"
+          placeholder="First Name"
           onChange={handleChange}
-          type="text" 
-          placeholder="What's your name?" 
-          value={name}
         />
-        <button 
-          type="submit"
-          style={{ backgroundColor: mouseOver ? "black" : "white"}}
-          onMouseOver={handleMouseOver}
-          onMouseOut={handleMouseOut}
-          >
-            Submit
-          </button>
-        </form>
+        <input
+          value={fullName.lName}
+          onChange={handleChange}
+          name="lName"
+          placeholder="Last Name"
+        />
+        <button>Submit</button>
+
+      </form>
     </div>
-  );
+  )
 }
-
 export default App;
-
-
-
