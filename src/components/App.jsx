@@ -12,25 +12,29 @@ function App () {
     const {name, value} = event.target;
 
     setContact(prevContact => {
-      if (name === "fName") {
-        return {
-          fName: value,
-          lName: prevContact.lName,
-          email: prevContact.email
-        };
-      } else if (name === "lName") {
-        return {
-          fName: prevContact.fName,
-          lName: value,
-          email: prevContact.email
-        };
-      } else {
-        return {
-          fName: prevContact.fName,
-          lName: prevContact.lName,
-          email: value
-        };
+      return {
+        ...prevContact,
+        [name]: value
       }
+      // if (name === "fName") {
+      //   return {
+      //     fName: value,
+      //     lName: prevContact.lName,
+      //     email: prevContact.email
+      //   };
+      // } else if (name === "lName") {
+      //   return {
+      //     fName: prevContact.fName,
+      //     lName: value,
+      //     email: prevContact.email
+      //   };
+      // } else {
+      //   return {
+      //     fName: prevContact.fName,
+      //     lName: prevContact.lName,
+      //     email: value
+      //   };
+      // }
     });
   }
 
